@@ -67,7 +67,7 @@ print("     MIN AND MAX PER COLUMN     ")
 print("################################")
 print ("")
 #CALCULATE MIN MAX OF EACH COLUMN IN DATATFRAME AND PRINT - this function took 2 hours to write :)
-#Im aware summarising using a sliced dataframe would be easier but I wanted to show I could make a reusable function
+#Im aware summarising using a slices dataframe would be easier but I wanted a reusable function
 def maxandmin(dataframe):
   columnslist = dataframe.columns.values.tolist() 
   for header in columnslist or []:
@@ -75,6 +75,59 @@ def maxandmin(dataframe):
     columnlist = list(columntuple)
     print("Min & Max for {0:>8}: {1:>6} {2:>6}".format(*columnlist)) # reference https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3
 maxandmin(irisdf)
+print("###############################")
+print("       MEDIAN PER COLUMN       ")
+print("###############################")
+print ("")
+def columnsmedian(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columnsmedtuple = str(header), float(dataframe[header].median()) 
+    columnsmedlist = list(columnsmedtuple)
+    print("Median of {0:>8}: {1:>6.2f}".format(*columnsmedlist))
+columnsmedian(irisdf)
+print ("")
+print ("")
+print("################################")
+print("       AVERAGE PER COLUMN       ")
+print("################################")
+print ("")
+def columnaverage(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columnavgtuple = str(header), float(dataframe[header].mean()) # mean includes decimal so must be set as float. Importing the decimal function was causing trouble
+    columnavglist = list(columnavgtuple)
+    print("Average(mean) of {0:>8}: {1:>6.2f}".format(*columnavglist))
+columnaverage(irisdf)
+print ("")
+print ("")
+print("###########################################")
+print("       STANDARD DEVIATION PER COLUMN       ")
+print("###########################################")
+print ("")
+def columnstddev(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columnstddevtuple = str(header), float(dataframe[header].std()) 
+    columnstddevlist = list(columnstddevtuple)
+    print("Standard dev of {0:>8}: {1:>6.2f}".format(*columnstddevlist))
+columnstddev(irisdf)
+###############################
+###MISSING MODE!!!!!!!!!!!!!!
+###############################
+print ("")
+print ("")
+print("#################################")
+print("       VARIANCE PER COLUMN       ")
+print("#################################")
+print ("")
+def columnsvar(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columnvartuple = str(header), float(dataframe[header].var()) 
+    columnsvarlist = list(columnvartuple)
+    print("Variance of {0:>8}: {1:>6.2f}".format(*columnsvarlist))
+columnsvar(irisdf)
 print ("")
 print ("")
 
