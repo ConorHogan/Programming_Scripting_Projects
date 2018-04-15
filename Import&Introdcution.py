@@ -1,9 +1,13 @@
+# better import and introduction section
+
 #######################################################################
 #      IMPORTING & STRUCTURING SECTION     #
 #######################################################################
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as graph
+import math as math
+import matplotlib.pyplot as plot
+import seaborn as graph
 
 url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
 irisdf = pd.read_csv(url, names=["S_Length","S_Width","P_Length","P_Width","Species"]) # convert csv data to panda dataframe and set column names
@@ -27,6 +31,10 @@ print ("Below is a sample of the first 5 rows of the Iris dataset.")
 print ("Note that the data has been adjusted to add headers and set the ""Species"" as the Index column.")
 print ("")
 print ("")
+print("##########################")
+print("       SAMPLE DATA        ")
+print("##########################")
+print ("")
 print (irisdf.head())
 print ("")
 print ("")
@@ -44,8 +52,29 @@ print ("")
 print ("")
 print (f"As shown below, there are {count_per_species} rows of data samples for each species amounting to {total_count} rows of data in total.")
 print ("")
+print("##########################")
+print("     ROWS PER SPECIES     ")
+print("##########################")
+print ("")
 print (count_per_speciesdf)
-#if isinstance(setosa_df, pd.DataFrame): # check if something is a dataframe
+#if isinstance(count_per_speciesdf, pd.DataFrame): # check if something is a dataframe
   #print ("Yup")
 #else: 
   #print ("Nope")
+print ("")
+print("################################")
+print("     MIN AND MAX PER COLUMN     ")
+print("################################")
+print ("")
+#CALCULATE MIN MAX OF EACH COLUMN IN DATATFRAME AND PRINT - this function took 2 hours to write :)
+#Im aware summarising using a sliced dataframe would be easier but I wanted to show I could make a reusable function
+def maxandmin(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columntuple = str(header), str(min(dataframe[header])), str(max(dataframe[header]))
+    columnlist = list(columntuple)
+    print("Min & Max for {0:>8}: {1:>6} {2:>6}".format(*columnlist)) # reference https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3
+maxandmin(irisdf)
+print ("")
+print ("")
+
