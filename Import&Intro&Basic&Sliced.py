@@ -1,5 +1,3 @@
-# better import and introduction section
-
 #######################################################################
 #      IMPORTING & STRUCTURING SECTION     #
 #######################################################################
@@ -10,8 +8,10 @@ import matplotlib.pyplot as plot
 import seaborn as graph
 
 url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
-irisdf = pd.read_csv(url, names=["S_Length","S_Width","P_Length","P_Width","Species"]) # convert csv data to panda dataframe and set column names
-irisdf.set_index("Species", inplace=True) # set class as the index as this is the main values that I will be filtering by
+irisdf = pd.read_csv(url) # apparently you call this a df for dataframe
+irisdf.columns = ["S_Length","S_Width","P_Length","P_Width","Species"]
+irisdf.columns.name = "Attributes" # added this to help with stacking https://www.youtube.com/watch?v=reTeOfEebeA
+irisdf.set_index("Species", inplace=True)
 
 ##CREATE 3 DATA SUBSETS FOR EACH IRIS 
 setosa_df = irisdf[irisdf.index == "Iris-setosa"]
@@ -75,6 +75,7 @@ def maxandmin(dataframe):
     columnlist = list(columntuple)
     print("Min & Max for {0:>8}: {1:>6} {2:>6}".format(*columnlist)) # reference https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3
 maxandmin(irisdf)
+print ("")
 print("###############################")
 print("       MEDIAN PER COLUMN       ")
 print("###############################")
@@ -128,6 +129,19 @@ def columnsvar(dataframe):
     columnsvarlist = list(columnvartuple)
     print("Variance of {0:>8}: {1:>6.2f}".format(*columnsvarlist))
 columnsvar(irisdf)
+####################################################################################
+#                               SLICED DATAFRAMES SECTION                          #
+####################################################################################
 print ("")
 print ("")
+print ("#######################################################################")
+print ("                        Sliced Dataframes                              ")
+print ("#######################################################################")
+print ("")
+iris_stackv = irisdf.stack() # restructure dataframe using stack
+iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
+iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
 
+#AVERAGES COMPARISON
+grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
+plot.show(grouped_avgs_graph)
