@@ -1,3 +1,5 @@
+# better import and introduction section
+
 #######################################################################
 #      IMPORTING & STRUCTURING SECTION     #
 #######################################################################
@@ -138,6 +140,7 @@ print ("#######################################################################"
 print ("                        Sliced Dataframes                              ")
 print ("#######################################################################")
 print ("")
+# CREATING AVERAGES STACKED DATAFRAME
 iris_stackv = irisdf.stack() # restructure dataframe using stack
 iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
 iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
@@ -145,3 +148,8 @@ iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_i
 #AVERAGES COMPARISON
 grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
 plot.show(grouped_avgs_graph)
+
+#SWARM DISTRIBUTION
+iris_stackswarm = iris_stackdf.reset_index()
+swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
+plot.show(swarm_by_attr_graph)
