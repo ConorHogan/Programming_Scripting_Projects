@@ -146,10 +146,25 @@ iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
 iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
 
 #AVERAGES COMPARISON
-grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
-plot.show(grouped_avgs_graph)
+#grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
+#plot.show(grouped_avgs_graph)
 
 #SWARM DISTRIBUTION
-iris_stackswarm = iris_stackdf.reset_index()
-swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
-plot.show(swarm_by_attr_graph)
+#iris_stackswarm = iris_stackdf.reset_index()
+#swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
+#plot.show(swarm_by_attr_graph)
+
+#####################
+#CORROLATION ANALYSIS
+######################
+corrdf = irisdf.corr() # create dataframe for corrolation
+#corrtable = irisdf.corr(method='pearson').style.format("{:.2}").background_gradient(cmap=plot.get_cmap('coolwarm'), axis=1)
+#plot.show(corrtable)
+
+#plot.matshow(irisdf.corr())
+
+#cmap = cmap=graph.diverging_palette(5, 250, as_cmap=True)
+#corrdf.style.background_gradient(cmap, axis=1)
+
+heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns)
+plot.show(heat)
