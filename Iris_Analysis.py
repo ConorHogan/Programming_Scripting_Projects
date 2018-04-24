@@ -8,6 +8,9 @@ import numpy as np
 import math as math
 import matplotlib.pyplot as plot
 import seaborn as graph
+from scipy.cluster import hierarchy # for dendrogram
+
+
 
 url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
 irisdf = pd.read_csv(url) # apparently you call this a df for dataframe
@@ -157,14 +160,30 @@ iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_i
 #####################
 #CORROLATION ANALYSIS
 ######################
+print ("")
+print ("")
+print ("#######################################################################")
+print ("                        CORROLATION ANALYSIS                           ")
+print ("#######################################################################")
+print ("")
+#####################
+#CORROLATION HEATMAP
+######################
 corrdf = irisdf.corr() # create dataframe for corrolation
-#corrtable = irisdf.corr(method='pearson').style.format("{:.2}").background_gradient(cmap=plot.get_cmap('coolwarm'), axis=1)
-#plot.show(corrtable)
-
-#plot.matshow(irisdf.corr())
-
-#cmap = cmap=graph.diverging_palette(5, 250, as_cmap=True)
-#corrdf.style.background_gradient(cmap, axis=1)
-
-heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns)
+print(corrdf)
+heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns, annot=True, cmap= "bwr") #https://www.youtube.com/watch?v=bA7ZcNmhnTs showed the annot trick
 plot.show(heat)
+
+
+#####################
+#DENDROGRAM
+###################### 
+# see https://python-graph-gallery.com/400-basic-dendrogram/
+del irisdf.index.name
+irisdf.columns = [''] * len(irisdf.columns) #remove column names
+Z = hierarchy.linkage(irisdf, 'ward') # https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/ explain linkage
+dendrogram_chart = hierarchy.dendrogram(Z)
+plot.show(dendrogram_chart)
+
+
+
