@@ -11,7 +11,7 @@ from scipy.cluster import hierarchy # for dendrogram
 
 
 url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
-irisdf = pd.read_csv(url) # apparently you call this a df for dataframe
+irisdf = pd.read_csv(url, header=None) # apparently you call this a df for dataframe
 irisdf.columns = ["S_Length","S_Width","P_Length","P_Width","Species"]
 irisdf.columns.name = "Attributes" # added this to help with stacking https://www.youtube.com/watch?v=reTeOfEebeA
 irisdf.set_index("Species", inplace=True)
@@ -119,6 +119,13 @@ columnstddev(irisdf)
 ###############################
 ###MISSING MODE!!!!!!!!!!!!!!
 ###############################
+def columnsmode(dataframe):
+  columnslist = dataframe.columns.values.tolist() 
+  for header in columnslist or []:
+    columnmodetuple = str(header), float(dataframe[header].count()) 
+    columnsmodelist = list(columnmodetuple)
+    print("Variance of {0:>8}: {1:>6.2f}".format(*columnsmodelist))
+columnsmode(irisdf)
 print ("")
 print ("")
 print("#################################")
@@ -207,10 +214,11 @@ plot.show(dendrogram_chart)
 #CLUSTERMAP
 ###################### 
 #http://seaborn.pydata.org/generated/seaborn.clustermap.html - documentation for this one is really good, lots of examples
+irisdf.index.name = "Species" # restore index name
 clusterdf = irisdf.reset_index() # strip index again
-species = clusterdf.pop("Species")
-lut = dict(zip(species.unique(), "rbg"))
-row_colors = species.map(lut)
+species = clusterdf.pop("Species") # cuts Species column
+lut = dict(zip(species.unique(), "rbg")) # assigns values to unique species
+row_colors = species.map(lut) # finds species names in graph and assigns colours
 clustermap = graph.clustermap(clusterdf, method="average", cmap="mako", linewidths=.5, figsize=(10, 15), row_colors=row_colors)
 for tick_label in clustermap.ax_heatmap.axes.get_yticklabels(): # make colour of labels match Species row colour https://stackoverflow.com/questions/47292737/change-the-color-for-ytick-labels-in-seaborn-clustermap
     tick_text = tick_label.get_text()
