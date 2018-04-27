@@ -7,6 +7,7 @@ import math as math
 import matplotlib.pyplot as plot
 import seaborn as graph
 from scipy.cluster import hierarchy # for dendrogram
+import statistics # for mode
 
 
 
@@ -116,15 +117,18 @@ def columnstddev(dataframe):
     columnstddevlist = list(columnstddevtuple)
     print("Standard dev of {0:>8}: {1:>6.2f}".format(*columnstddevlist))
 columnstddev(irisdf)
-###############################
-###MISSING MODE!!!!!!!!!!!!!!
-###############################
+print ("")
+print ("")
+print("###########################################")
+print("             MODE PER COLUMN               ")
+print("###########################################")
+print ("")
 def columnsmode(dataframe):
-  columnslist = dataframe.columns.values.tolist() 
+  columnslist = dataframe.columns.values.tolist()
   for header in columnslist or []:
-    columnmodetuple = str(header), float(dataframe[header].count()) 
+    columnmodetuple = str(header), str(dataframe[header].mode()) #had to make this a string to work
     columnsmodelist = list(columnmodetuple)
-    print("Variance of {0:>8}: {1:>6.2f}".format(*columnsmodelist))
+    print("Mode of {0:>8}: {1:>6}".format(*columnsmodelist))
 columnsmode(irisdf)
 print ("")
 print ("")
