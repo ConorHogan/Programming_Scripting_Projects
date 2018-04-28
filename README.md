@@ -50,3 +50,24 @@ These three packages were used for graphing results or output of analysis. All t
 Two resources I found extremely useful when building the graphs in this project, were the [The Python Graph Gallery](http://python-graph-gallery.com) and to a lesser extent the [Seaborn official documentation](https://seaborn.pydata.org/).
 
 ## 3.3 IMPORTING THE DATASET
+The source I used for the Iris dataset was the .CSV file available on the UC Irvine Machine Learning Reporistory Site (http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data).
+The initial plan was to import my data directly from here, but the website notes that there are two mistakes in the dataset at row 35 and 38. I therefore decided to instead copy the data into a .CSV file, make the two correction outlined on the site and save the .CSV file in this repository [here](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Iris_Data.csv). 
+I then used the Pandas package to read the ammended dataset directly from the repositroy into a Pandas dataframe. See code below:
+
+````python
+url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
+irisdf = pd.read_csv(url, header=None) 
+irisdf.columns = ["S_Length","S_Width","P_Length","P_Width","Species"]
+irisdf.columns.name = "Attributes" # added this to help with stacking https://www.youtube.com/watch?v=reTeOfEebeA
+irisdf.set_index("Species", inplace=True)
+
+##CREATE 3 DATA SUBSETS FOR EACH IRIS SPECIES
+setosa_df = irisdf[irisdf.index == "Iris-setosa"]
+versicolor_df = irisdf[irisdf.index == "Iris-versicolor"]
+virginica_df = irisdf[irisdf.index == "Iris-virginica"]
+````
+
+
+
+
+
