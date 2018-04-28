@@ -255,3 +255,117 @@ columnsvar(irisdf)
 **Output:**
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
+
+### 3.5 CORROLATION ANALYSIS
+After completing the above basic analysis, I then moved on to looking at if any of the attributes influenced other attributes. I did this using corrolation analysis.
+
+#### 3.5.1 CORROLATION TABLE
+There method I used to identify any potential corrolation was creating a corrolation dataframe using the "dataframe.corr()" function and then printing the dataframe.
+````python
+#####################
+#CORROLATION TABLE
+######################
+corrdf = irisdf.corr() # create dataframe for corrolation
+print(corrdf.round(2)) #print rounded to two decimal places to match heatmap
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrtable.png)
+
+#### 3.5.2 CORROLATION HEATMAP
+````python
+#####################
+#CORROLATION HEATMAP
+######################
+heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns, annot=True, cmap= "bwr") #https://www.youtube.com/watch?v=bA7ZcNmhnTs showed the annotate trick
+plot.show(heat)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrheatmap.png)
+
+#### 3.5.3 CORROLATION PAIRPLOT
+````python
+#https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/ & https://python-graph-gallery.com/111-custom-correlogram/
+pairplotdf = irisdf.reset_index() # had to remove index to get the "hue" to pick up the seperate species. Didn't work with df.index
+corr_pairplot = graph.pairplot(pairplotdf, kind="scatter", hue="Species")
+plot.show(corr_pairplot)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrplot.png)
+
+### 3.6 COMPARING / CONTRASTING SPECIES
+
+#### 3.6.1 AVERAGES COMPARISON
+````python
+# CREATING AVERAGES STACKED DATAFRAME
+iris_stackv = irisdf.stack() # restructure dataframe using stack
+iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
+iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
+
+#AVERAGES COMPARISON
+grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
+plot.show(grouped_avgs_graph)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/averagesbarchart.png)
+
+#### 3.6.2 ATTRIBUTES SWARMPLOT
+````python
+#SWARM DISTRIBUTION
+iris_stackswarm = iris_stackdf.reset_index()
+swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
+plot.show(swarm_by_attr_graph)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/scatterplot.png)
+
+### 3.7 CLUSTER ANALYSIS
+
+#### 3.7.1 DENDROGRAM
+````python
+#####################
+#DENDROGRAM
+###################### 
+# see https://python-graph-gallery.com/400-basic-dendrogram/  
+del irisdf.index.name
+irisdf.columns = [''] * len(irisdf.columns) #remove column names
+Z = hierarchy.linkage(irisdf, 'ward') # https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/ explain linkage
+dendrogram_chart = hierarchy.dendrogram(Z, orientation="left", labels=irisdf.index, color_threshold=10, above_threshold_color="grey")
+plot.show(dendrogram_chart)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/irisdendrogram.png)
+
+#### 3.7.2 CLUSTERMAP
+````python
+#####################
+#CLUSTERMAP
+###################### 
+#http://seaborn.pydata.org/generated/seaborn.clustermap.html - documentation for this one is really good, lots of examples
+irisdf.index.name = "Species" # restore index name
+clusterdf = irisdf.reset_index() # strip index again
+species = clusterdf.pop("Species") # cuts Species column
+lut = dict(zip(species.unique(), "rbg")) # assigns values to unique species
+row_colors = species.map(lut) # finds species names in graph and assigns colours
+clustermap = graph.clustermap(clusterdf, method="average", cmap="mako", linewidths=.5, figsize=(10, 15), row_colors=row_colors)
+for tick_label in clustermap.ax_heatmap.axes.get_yticklabels(): # make colour of labels match Species row colour https://stackoverflow.com/questions/47292737/change-the-color-for-ytick-labels-in-seaborn-clustermap
+    tick_text = tick_label.get_text()
+    species_name = species.loc[int(tick_text)]
+    tick_label.set_color(lut[species_name])
+plot.show(clustermap)
+````
+
+**Output:**
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/dendheatmap.png)
