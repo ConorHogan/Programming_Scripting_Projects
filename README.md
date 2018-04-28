@@ -127,7 +127,19 @@ I also created two variables; the first to get first value in the "Count" column
 Finally, I insterted the variables in to the a string to print using the "f-strings" feature and also printed the "count_per_speciesdf" dataframe. 
 
 ### 3.4.3 STATISTICS FUNCTIONS
+I next moved on to doing some statistical calculation on the dataset. While I count of used the groupby and calculate method I used above to create dataframes summarising the data in different way, I instead opted to create function. I did this mainly to use some of what we he learned on the course. The functions I create were used to calculate the range(max/min), median, average, standard deviation, mode, and variance for each of the four "Attribute" columns in the dataset. 
 
+Each of the functions work in roughly the same way:
+
+1. The user enters a dataframe to pass through the function
+
+2. The column names are converted into a list to use a reference
+
+3. To function iterates through each column and performs the calculation converting the result(s) and column name into a tuple(a fixed list).
+
+4. The tuple is coverted to a list.
+
+5. Items are taken from the list and insterted into a string which is printed.
 
 
 
