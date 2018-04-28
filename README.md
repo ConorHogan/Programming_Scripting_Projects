@@ -85,6 +85,7 @@ print (irisdf.head())
 print ("")
 ````
 **Output:**
+
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Dataframe_head.png)
 
 Using the index function had moved the "Species" column for the rightmost column to the leftmost column and the column headers has been assigned correctly.
@@ -114,6 +115,7 @@ print (count_per_speciesdf)
 ````
 
 **Output:**
+
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Rowsper_species.png)
 
 The above code first gets a count of the unique species by converting the Index into a list, then getting the list of unique values in that list using the "set()" function, and finally counting the number of these values using "len()". This is used to created the *"species_count"* variable that is inserted into the output text.
