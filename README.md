@@ -46,7 +46,7 @@ To get up to speed on how to use Pandas I watched the [Data Analysis with Python
 NumPy and Math were imported for calculating averages, standard deviation, variance etc. I later also added the Statistics package as there is no Mode function in either NumPy or Math.
 
 ### 3.2.3 MATPLOTLIB, SEABORN, SCIPY
-These three packages were used for graphing results or output of analysis. All the graphs in this project use Seaborn which builds on top of Matplotlib. The SciPy cluster package was imported for use in building the dengrograms in the cluster analysis section of this project. 
+These three packages were used for graphing results or output of analysis. All the graphs in this project use Seaborn which builds on top of Matplotlib. The SciPy cluster package was imported for use in building the dendrograms in the cluster analysis section of this project. 
 Two resources I found extremely useful when building the graphs in this project, were the [The Python Graph Gallery](http://python-graph-gallery.com) and to a lesser extent the [Seaborn official documentation](https://seaborn.pydata.org/).
 
 ## 3.3 IMPORTING THE DATASET
