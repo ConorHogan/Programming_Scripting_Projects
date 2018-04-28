@@ -24,7 +24,7 @@ https://en.wikipedia.org/wiki/Iris_flower_data_set
 In this section I will show the types of  analysis I performed on the dataset and the Python code I used in for each type. Please note the code I have written is all contained within the one "Iris_Analysis.py" file available in the respository. The code is designed to be run in one go and it will output all the analysis outlined below to either the users terminal or as Matplotlib graphs.
 
 ## 3.2 PACKAGES USED IN ANALYSIS 
-I used the following packages in my analysis. 
+I imported the following packages for in my analysis: 
 
 ````python 
 #######################################################################
@@ -38,3 +38,6 @@ import seaborn as graph
 from scipy.cluster import hierarchy # for dendrogram
 import statistics # for mode
 ````
+### PANDAS
+Panadas allows you to create spreadsheet format dataframes which can then be used to perform analysis on rows and columns in that dataframe, assign headers to columns, and also easily create subsets or pivots of that data. I previously came across Pandas when investigating how to tackle a project in work that I did at the start of this course and looked at it more closely when beginning this project. It quickly become obvious that it would be very useful in this project. 
+To get up to speed on how to use Pandas I watched the [Data Analysis with Python and Pandas](https://www.youtube.com/watch?v=Iqjy9UqKKuo&list=PLQVvvaa0QuDc-3szzjeP6N6b0aDrrKyL-) introductory tutorial on YouTube which was very useful. 
