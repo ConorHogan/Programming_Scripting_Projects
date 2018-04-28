@@ -18,10 +18,10 @@ https://www.techopedia.com/definition/32880/iris-flower-data-set
 http://lab.fs.uni-lj.si/lasin/wp/IMIT_files/neural/doc/seminar8.pdf
 https://en.wikipedia.org/wiki/Iris_flower_data_set
 
-# 3.0 ANALYSIS OF THE DATASET
+# 3.0 CODE USED FOR ANALYSIS
 
 ## 3.1 INTRODUCTION TO THIS SECTION
-In this section I will show the types of  analysis I performed on the dataset and the Python code I used in for each type. Please note the code I have written is all contained within the one "Iris_Analysis.py" file available in the respository. The code is designed to be run in one go and it will output all the analysis outlined below to either the users terminal or as Matplotlib graphs.
+In this section I will show the types of analysis I performed on the dataset and the Python code I used in for each type. Please note the code I have written is all contained within the one "Iris_Analysis.py" file available in the respository. The code is designed to be run in one go and it will output all the analysis outlined below to either the users terminal or as Matplotlib graphs.
 
 ## 3.2 PACKAGES USED IN ANALYSIS 
 I imported the following packages for in my analysis: 
@@ -67,12 +67,7 @@ versicolor_df = irisdf[irisdf.index == "Iris-versicolor"]
 virginica_df = irisdf[irisdf.index == "Iris-virginica"]
 ````
 
-The above code created the "irisdf" dataframe that I would be using as master dataframe for the rest of the analysis. 
--The code first creates a variable storing the link to the dataset file as a URL. 
--It then creates a dataframe by reading the data in the URL. 
--"Header=None" ensures that the top row of the dataset is not counted as header row. If I had not of done this, the top row of the dataset would have been skipped in all my future calculations. 
--I then assigned names to each of the columns in the dataset as these were missing from the original file. I also gave the column header rows the name "Attributes" to help with pivots the data using "stack" later in my analysis. 
--Finally, I set the "Species" column as the dataframes Index as this would be column I would be using to filter, or slice the dataframe in most of my analysis. Setting an index also removes the count column when printing the dataframe. 
+The above code created the "irisdf" dataframe that I would be using as master dataframe for the rest of the analysis. The code first creates a variable storing the link to the dataset file as a URL. It then creates a dataframe by reading the data in the URL. "Header=None" ensures that the top row of the dataset is not counted as header row. If I had not of done this, the top row of the dataset would have been skipped in all my future calculations. I then assigned names to each of the columns in the dataset as these were missing from the original file. I also gave the column header rows the name "Attributes" to help with pivots the data using "stack" later in my analysis. Finally, I set the "Species" column as the dataframes Index as this would be column I would be using to filter, or slice the dataframe in most of my analysis. Setting an index also removes the count column when printing the dataframe. 
 
 I also created three seperate dataframes for each species, but in the end the were not required. 
 
@@ -94,8 +89,42 @@ print ("")
 
 Using the index function had moved the "Species" column for the rightmost column to the leftmost column and the column headers has been assigned correctly.
 
-### CHECKING COUNTS
-I then wanted to 
+### 3.4.2 CHECKING COUNTS
+To check the total count of rows in the dataset, the number of unique Species, and the count of data samples per species were correct I created the following code. 
+
+````python
+species_list = irisdf.index.tolist() # converts index into an array
+species_count = len(set(species_list)) # removes duplicates and counts 
+count_per_speciesdf = irisdf[["S_Length"]].groupby(irisdf.index).size().reset_index(name="Count") # create new df summarising counts per species
+count_per_speciesdf.set_index("Species", inplace=True) # change index column back to species
+count_per_species = count_per_speciesdf.iloc[0]["Count"] # get value if first cell in the Count column
+total_count = count_per_speciesdf["Count"].sum()
+print ("")
+print ("")
+print (f"There are {species_count} unique species.") #f allows for a variable to be insterted into string
+print ("")
+print ("")
+print (f"As shown below, there are {count_per_species} rows of data samples for each species amounting to {total_count} rows of data in total.")
+print ("")
+print("##########################")
+print("     ROWS PER SPECIES     ")
+print("##########################")
+print ("")
+print (count_per_speciesdf)
+````
+
+**Output:**
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Rowsper_species.png)
+
+The above code first gets a count of the unique species by converting the Index into a list, then getting the list of unique values in that list using the "set()" function, and finally counting the number of these values using "len()". This is used to created the *"species_count"* variable that is inserted into the output text.
+
+The code also creates a new dataframe ("count_per_speciesdf") summarising the count of rows for each species. The "groupby" function allows you to choose a column to summarise the data by, (in this case the Index: "Species") and perform a calculation. Here I used the "size()" function to get the count of the data in the column and then add this data to a column in the new dataframe called "Count". 
+
+I also created two variables; the first to get first value in the "Count" column using "iloc" row plus column name which equates to the count of rows per Species, and the second to get the sum of the "Count" column which equates to the count of rows for all species. 
+
+Finally, I insterted the variables in to the a string to print using the "f-strings" feature and also printed the "count_per_speciesdf" dataframe. 
+
+### 3.4.3 STATISTICS FUNCTIONS
 
 
 
