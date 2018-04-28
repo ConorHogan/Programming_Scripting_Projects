@@ -67,6 +67,24 @@ versicolor_df = irisdf[irisdf.index == "Iris-versicolor"]
 virginica_df = irisdf[irisdf.index == "Iris-virginica"]
 ````
 
+The above code created the "irisdf" dataframe that I would be using as master dataframe for the rest of the analysis. The code first creates a variable storing the link to the dataset file as a URL. It the creates a dataframe by reading the data in the URL. "Header=None" ensures that the top row of the dataset is not counted as header row. If I had not of done this, the top row of the dataset would have been skipped in all my future calculations. I then assigned names to each of the columns in the dataset as these were missing from the original file. I also gave the column header rows the name "Attributes" to help with pivots the data using "stack" later in my analysis. Finally, I set the "Species" column as the dataframes Index as this would be column I would be using to filter, or slice the dataframe in most of my analysis. Setting an index also removes the count column when printing the dataframe. 
+
+I also created three seperate dataframes for each species, but in the end the were not required. 
+
+## 3.4 BASIC ANALYSIS
+The first thing I did when examing the new dataframe was to us the "dataframe.head()" function to print the first 5 rows of the dataset and check my index and column headers had been saved correctly. 
+
+````python
+print("##########################")
+print("       SAMPLE DATA        ")
+print("##########################")
+print ("")
+print (irisdf.head())
+print ("")
+````
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Dataframe_head.png "Output:")
+
 
 
 
