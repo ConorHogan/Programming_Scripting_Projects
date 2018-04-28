@@ -12,12 +12,12 @@ import statistics # for mode
 
 
 url = 'https://raw.githubusercontent.com/ConorHogan/Programming_Scripting_Projects/master/Iris_Data.csv'
-irisdf = pd.read_csv(url, header=None) # apparently you call this a df for dataframe
+irisdf = pd.read_csv(url, header=None)  
 irisdf.columns = ["S_Length","S_Width","P_Length","P_Width","Species"]
 irisdf.columns.name = "Attributes" # added this to help with stacking https://www.youtube.com/watch?v=reTeOfEebeA
 irisdf.set_index("Species", inplace=True)
 
-##CREATE 3 DATA SUBSETS FOR EACH IRIS 
+##CREATE 3 DATA SUBSETS FOR EACH IRIS SPECIES
 setosa_df = irisdf[irisdf.index == "Iris-setosa"]
 versicolor_df = irisdf[irisdf.index == "Iris-versicolor"]
 virginica_df = irisdf[irisdf.index == "Iris-virginica"]
@@ -26,15 +26,6 @@ virginica_df = irisdf[irisdf.index == "Iris-virginica"]
 #      INTRODUCTION     #
 #######################################################################
 
-print ("#######################################################################")
-print ("                          Introduction                                 ")
-print ("#######################################################################")
-print ("")
-print ("")
-print ("Below is a sample of the first 5 rows of the Iris dataset.")
-print ("Note that the data has been adjusted to add headers and set the ""Species"" as the Index column.")
-print ("")
-print ("")
 print("##########################")
 print("       SAMPLE DATA        ")
 print("##########################")
@@ -51,7 +42,7 @@ count_per_species = count_per_speciesdf.iloc[0]["Count"] # get value if first ce
 total_count = count_per_speciesdf["Count"].sum()
 print ("")
 print ("")
-print (f"The primary purpose of this project is to analyse the differences between these {species_count} species.") #f allows for a variable to be insterted into string
+print (f"There are {species_count} unique species.") #f allows for a variable to be insterted into string
 print ("")
 print ("")
 print (f"As shown below, there are {count_per_species} rows of data samples for each species amounting to {total_count} rows of data in total.")
@@ -61,17 +52,12 @@ print("     ROWS PER SPECIES     ")
 print("##########################")
 print ("")
 print (count_per_speciesdf)
-#if isinstance(count_per_speciesdf, pd.DataFrame): # check if something is a dataframe
-  #print ("Yup")
-#else: 
-  #print ("Nope")
 print ("")
 print("################################")
 print("     MIN AND MAX PER COLUMN     ")
 print("################################")
 print ("")
-#CALCULATE MIN MAX OF EACH COLUMN IN DATATFRAME AND PRINT - this function took 2 hours to write :)
-#Im aware summarising using a slices dataframe would be easier but I wanted a reusable function
+#CALCULATE MIN MAX OF EACH COLUMN IN DATATFRAME AND PRINT
 def maxandmin(dataframe):
   columnslist = dataframe.columns.values.tolist() 
   for header in columnslist or []:
@@ -143,28 +129,6 @@ def columnsvar(dataframe):
     columnsvarlist = list(columnvartuple)
     print("Variance of {0:>8}: {1:>6.2f}".format(*columnsvarlist))
 columnsvar(irisdf)
-####################################################################################
-#                               SLICED DATAFRAMES SECTION                          #
-####################################################################################
-print ("")
-print ("")
-print ("#######################################################################")
-print ("                        Sliced Dataframes                              ")
-print ("#######################################################################")
-print ("")
-# CREATING AVERAGES STACKED DATAFRAME
-iris_stackv = irisdf.stack() # restructure dataframe using stack
-iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
-iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
-
-#AVERAGES COMPARISON
-grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
-plot.show(grouped_avgs_graph)
-
-#SWARM DISTRIBUTION
-iris_stackswarm = iris_stackdf.reset_index()
-swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
-plot.show(swarm_by_attr_graph)
 
 #####################
 #CORROLATION ANALYSIS
@@ -185,7 +149,7 @@ print(corrdf.round(2)) #print rounded to two decimal places to match heatmap
 #####################
 #CORROLATION HEATMAP
 ######################
-heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns, annot=True, cmap= "bwr") #https://www.youtube.com/watch?v=bA7ZcNmhnTs showed the annot trick
+heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns, annot=True, cmap= "bwr") #https://www.youtube.com/watch?v=bA7ZcNmhnTs showed the annotate trick
 plot.show(heat)
 
 
@@ -197,12 +161,28 @@ pairplotdf = irisdf.reset_index() # had to remove index to get the "hue" to pick
 corr_pairplot = graph.pairplot(pairplotdf, kind="scatter", hue="Species")
 plot.show(corr_pairplot)
 
-print ("")
-print ("")
-print ("#######################################################################")
-print ("                        CLUSTER ANALYSIS                               ")
-print ("#######################################################################")
-print ("")
+
+#######################################################################
+#                        COMPARING SPECIES                            #
+#######################################################################
+
+# CREATING AVERAGES STACKED DATAFRAME
+iris_stackv = irisdf.stack() # restructure dataframe using stack
+iris_stackdf = pd.DataFrame(iris_stackv, columns= ["Measures"])
+iris_stackavgdf = iris_stackdf.groupby(['Species', 'Attributes']).mean().reset_index() # remove index to make axis easier to assign
+
+#AVERAGES COMPARISON
+grouped_avgs_graph = graph.factorplot(x='Species', y='Measures', hue='Attributes', data=iris_stackavgdf, kind='bar')
+plot.show(grouped_avgs_graph)
+
+#SWARM DISTRIBUTION
+iris_stackswarm = iris_stackdf.reset_index()
+swarm_by_attr_graph = graph.swarmplot(x="Attributes", y="Measures", hue="Species", data=iris_stackswarm)
+plot.show(swarm_by_attr_graph)
+
+#######################################################################
+#                        CLUSTER ANALYSIS                             #
+#######################################################################
 
 #####################
 #DENDROGRAM
