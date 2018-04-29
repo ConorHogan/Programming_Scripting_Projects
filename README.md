@@ -395,7 +395,7 @@ To generate the "colour leaves" section of the graph I did the following steps u
 
 4. Created a dictionary of the 3 unique values in the "Species" column and and assigned the "rbg" colour scheme to this list.
 
-For the clustermap itself, I again set "ward" as the linkage method, set the colour scheme to "mako". Finally, I again borrowed code from the Stack Overflow example to make the datalables on the right hand side match the colour of the "Species Leaves" section. 
+For the clustermap itself, I again set "ward" as the linkage method, set the colour scheme to "mako". Finally, I again borrowed code from the Stack Overflow example referenced above to make the datalables on the right hand side match the colour of the "Species Leaves" section. 
 
 
 
@@ -420,4 +420,4 @@ plot.show(clustermap)
 
 **Output:**
 
-![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/dendheatmap.png)
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
