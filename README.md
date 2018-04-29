@@ -440,13 +440,20 @@ MEDIAN                     |  MODE
 
 Looking at the relatively high Median values for Petal Length and Petal Width in comparison to the minimum values observed above is further evidence that there is a minority of that with small petals. Also, the low Mode for the petal characteristics in comparison to Median and Average is an indicator that there may be a minority of the dataset that is disproportionately responsible keeping these figures low.
 
-### 4.1.3 AVERAGE & STANDARD DEVIATION
+### 4.1.3 AVERAGE, STANDARD DEVIATION & VARIANCE
 
-MEDIAN                     |  MODE
-:-------------------------:|:-------------------------:
-![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Average.png)  |  ![](![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Deviation.png)
+AVERAGE                    |  STANDARD DEVIATION       |  VARIANCE
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Average.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Deviation.png)   |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
 
-The Averages don't tell us much on their own, but act a baseline for comparison with the other outputs. 
+The Averages don't tell us much on their own, but acts a baseline for comparison with the other outputs. For example, looking at the Standard Deviation for the two Petal characterisitcs we can see that values are very high in comparison to the Average values. This again suggests a large distribution of values in the samples for these two characterisitics and suggest that we are dealing with species that look very different from each other. 
+
+### 4.1.4 VARIANCE
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
+
+
+
 
 
 
