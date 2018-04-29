@@ -140,19 +140,40 @@ print ("                        CORROLATION ANALYSIS                           "
 print ("#######################################################################")
 print ("")
 
-#####################
-#CORROLATION TABLE
-######################
+print("###################")
+print("#CORROLATION TABLE#")
+print("###################")
 corrdf = irisdf.corr() # create dataframe for corrolation
 print(corrdf.round(2)) #print rounded to two decimal places to match heatmap
-
+print ("")
+print ("")
 #####################
 #CORROLATION HEATMAP
 ######################
 heat = graph.heatmap(corrdf, xticklabels=corrdf.columns,yticklabels=corrdf.columns, annot=True, cmap= "bwr") #https://www.youtube.com/watch?v=bA7ZcNmhnTs showed the annotate trick
 plot.show(heat)
 
-
+print("####################")
+print("#CORROLATION SETOSA#")
+print("####################")
+corr_setosadf = setosa_df.corr()
+print(corr_setosadf.round(2))
+print ("")
+print ("")
+print("########################")
+print("#CORROLATION VERSICOLOR#")
+print("########################")
+corr_verdf = versicolor_df.corr()
+print(corr_verdf.round(2))
+print ("")
+print ("")
+print("#######################")
+print("#CORROLATION VIRGINICA#")
+print("#######################")
+corr_virgdf = virginica_df.corr()
+print(corr_virgdf.round(2))
+print ("")
+print ("")
 #####################
 #CORROLATION PAIRPLOT
 ######################
@@ -160,6 +181,7 @@ plot.show(heat)
 pairplotdf = irisdf.reset_index() # had to remove index to get the "hue" to pick up the seperate species. Didn't work with df.index
 corr_pairplot = graph.pairplot(pairplotdf, kind="scatter", hue="Species")
 plot.show(corr_pairplot)
+
 
 
 #######################################################################
