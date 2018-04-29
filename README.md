@@ -5,10 +5,11 @@
 
 # 2.0 INTRODUCTION TO FISHER'S IRIS DATASET
 Fisher's Iris dataset describes the biological characterisitics of three species of iris. The dataset includes 50 examples of each species, with each example having four measured characteristics:
-(1) sepal length in cm
-(2) sepal width in cm
-(3) petal lenght in cm
-(4) petal width in cm
+
+1. sepal length in cm
+2. sepal width in cm
+3. petal lenght in cm
+4. petal width in cm
 
 The dataset has become a standard used to test new methods of sorting data, for example in machine learning. 
 The dataset represents a difficult case for unsupervised analysis i.e. if the species for each example is not know. As I will show in my own analysis, Iris Setosa is a clearly distinct species, whereas Iris Versicolor and Iris Virginica are more difficult to distinguish from eachother for certain without knowing the species name in advance. 
@@ -397,8 +398,6 @@ To generate the "colour leaves" section of the graph I did the following steps u
 
 For the clustermap itself, I again set "ward" as the linkage method, set the colour scheme to "mako". Finally, I again borrowed code from the Stack Overflow example referenced above to make the datalables on the right hand side match the colour of the "Species Leaves" section. 
 
-
-
 ````python
 #####################
 #CLUSTERMAP
@@ -421,3 +420,20 @@ plot.show(clustermap)
 **Output:**
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
+
+# 4.O SUMMARY OF INVESTIGATIONS
+
+## 4.1 STATISICAL FUNCTIONS
+
+### 4.1.2 MIN AND MAX (RANGE)
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/MinMax.png)
+
+
+
+
+## CORROLATION ANALYSIS
+
+## COMPARATIVE ANALYSIS
+
+## CLUSTER ANALYSIS
