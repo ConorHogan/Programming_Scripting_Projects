@@ -337,7 +337,7 @@ SETOSA                     |  VERSICOLOR               |  VIRGINICA
 
 
 ### 3.5.4 CORROLATION PAIRPLOT
-While looking at The Python Graph Gallery I also noticed the [Corrolation Matrix](https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/) which is a Seaborn Pairplot graph. To add a "hue" (reference colour scheme) that shows different species, I removed the index from the dataframe to allow me to set the "Species" column as a reference. Try to set the "df.index" as a reference for the "hue" returned an error.
+While looking at The Python Graph Gallery I also noticed the [Corrolation Matrix](https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/) which is a Seaborn Pairplot graph. To add a "hue" (reference colour scheme) that shows different species, I removed the index from the dataframe to allow me to set the "Species" column as a reference. Try to set the "df.index" as a reference for the "hue" returned an error. While I have included this in the Corrolation section it is probably more relevant to the next section on Comparing / Contrasting Species.
 
 ````python
 #https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/ & https://python-graph-gallery.com/111-custom-correlogram/
@@ -502,8 +502,44 @@ SETOSA                     |  VERSICOLOR               |  VIRGINICA
 In summary, there is a no significant corrolation between characteristics when viewing the species on an individual basis, but there may be some corrolation for Irises in general.
 
 
-## COMPARATIVE ANALYSIS
+## 4.3 COMPARATIVE ANALYSIS
+
+### 4.3.1 AVERAGES
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/averagesbarchart.png)
+
+From looking at this graph you can clearly see that overall Versicolor and Viriginica are much more similar species in comparison to Setosa which has a much smaller Petal width & length.
+
+### 4.3.2 SWARMPLOT & CORROLATION PAIRPLOT
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/scatterplot.png)
+
+Here you can again see the clear seperation between Iris Setosa and the other two species by looking at the Petal size. You can also see that there is a lot of overlap between Virginica and Versicolor in relation to Sepal size, to the point where they are almost indistinguishable when looking at Sepal width. 
+
+This is also observable in the Pairplot, where individual samples of Versicolor and Viriginica are indistinguishable when viewing corrolation between Sepal Width and Sepal Length.
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrplot.png)
+
+## 4.4 CLUSTER ANALYSIS
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
+
+By looking at the above Clustermap you can again see the while Iris Setosa (Red) is a very distinct species identified by its very small Petal width and length, the cluster algorithm has a much more difficult time distinguishing between Iris Virginica (Green) and Versicolor (Blue). 
+
+Looking at the clusters in the Dendrogram below. The algorithm has established that there is a clear Viriginica cluster with similar characterisitics, but many samples that we know are Viriginica samples are so similar to Versicolor samples that they have been grouped into the wrong species. Looking at the heatmap part of the Clustermap, you can make out the Virginica samples from their larger Petal Width values, but they have been included in the Versicolor cluster due to their other characteristics.
+
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/zoomvers_virg.png)
+
+## 4.5 CONCLUSION
+
+In conclusion, if you were presented with this dataset without knowing which species each sample belonged to and you repeated the analysis I performed above, you would be presented with misleading or confusing results results. 
+
+Firstly, looking for corrolation between characteristics in the dataset as a whole leads to results that are not repeated when you know there are three seperate species and you analyse these individually.
+
+Secondly, while you would quickly be able to identify that there is one clearly distinct group or species present in the dataset (Iris Setosa), and that there are two other groups, many of the Virginica and Versicolor samples would be misclassified into the others species.
 
 
 
-## CLUSTER ANALYSIS
+
+
+
