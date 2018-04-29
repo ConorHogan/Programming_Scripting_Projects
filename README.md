@@ -127,7 +127,7 @@ I also created two variables; the first to get first value in the "Count" column
 Finally, I insterted the variables in to the a string to print using the "f-strings" feature and also printed the "count_per_speciesdf" dataframe. 
 
 ### 3.4.3 STATISTICS FUNCTIONS
-I next moved on to doing some statistical calculation on the dataset. While I count of used the groupby and calculate method I used above to create dataframes summarising the data in different way, I instead opted to create function. I did this mainly to use some of what we he learned on the course. The functions I create were used to calculate the range(max/min), median, average, standard deviation, mode, and variance for each of the four "Attribute" columns in the dataset. 
+I next moved on to doing some statistical calculation on the dataset. While I count of used the groupby and calculate method I used above to create dataframes summarising the data in different way, I instead opted to create function. I mainly took this approach to use some of what we he learned on the course. The functions I create were used to calculate the range(max/min), median, average, standard deviation, mode, and variance for each of the four "Attribute" columns in the dataset. 
 
 Each of the functions work in roughly the same way:
 
@@ -137,11 +137,12 @@ Each of the functions work in roughly the same way:
 
 3. To function iterates through each column and performs the calculation converting the result(s) and column name into a tuple(a fixed list).
 
-4. The tuple is coverted to a list.
+4. The tuple is coverted to a list. I could not figure out how to print elements from a tuple in a string, so I converted the tuple to a list.
 
-5. Items are taken from the list and insterted into a string which is printed. I used this tutorial (https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3) to learn how to get the text alignment and formating of floating point numbers to include decimal places. 
+5. Items are taken from the list and insterted into a string which is printed. I used this tutorial (https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3) to learn how to get the text alignment(padding and justification) and formating of floating point numbers to include decimal places. The [PyFormat](https://pyformat.info/) website was also very useful as reference for setting the format of the string output. 
 
 #### 3.4.3.1 MIN AND MAX 
+The first function finds the min and max value in each column (ignoring the index) and coverts these values into strings in tuple that are insterted into the output text. There was a bit of trial and error in getting the text padding right.
 ````python
 print("################################")
 print("     MIN AND MAX PER COLUMN     ")
@@ -162,6 +163,7 @@ maxandmin(irisdf)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/MinMax.png)
 
 #### 3.4.3.2 MEDIAN
+This function is slightly different in that the Median value is outputed as a floating point number instead of a string. Setting as a string caused the output to go out of alignment for "P_Length" as there was more than one decimal place. Setting as a floating point number allowed me to set the number of decimal places for all values to 2 and keep the correct alignment.
 ````python
 print("###############################")
 print("       MEDIAN PER COLUMN       ")
@@ -181,6 +183,10 @@ columnsmedian(irisdf)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Median.png)
 
 #### 3.4.3.3 MODE
+I initially skipped this function as I wasn't sure what benefit knowing the mode for each Attribute would give. When I did come back to it, the formatting proved difficult as there are two mode values for "P_length" (1.4 and 1.5). Setting this as a float resulted in an error because there are two numbers. Setting as a string value worked, but the output formatting is not in line with the other functions. I counldn't find a way to tidy the formatting.  
+
+Mode is not included in the NumPy package so I had to import the Statistics package to perform this calculation.
+
 ````python
 print("###########################################")
 print("             MODE PER COLUMN               ")
@@ -200,6 +206,8 @@ columnsmode(irisdf)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Mode.png)
 
 #### 3.4.3.4 AVERAGE 
+This function calculates the average(mean) for each column/Attribute. As I show later, there is an easier way of getting this data using using Pandas "groupby" function, which used for my barchart showing averages for each Attribute by Species.
+
 ````python
 print("################################")
 print("       AVERAGE PER COLUMN       ")
@@ -219,6 +227,8 @@ columnaverage(irisdf)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Average.png)
 
 #### 3.4.3.5 STANDARD DEVIATION
+This function calculates the standard deviation for each column. This reuses the same code as the Averages function, but subs in the NumPy ".std()" function.
+
 ````python
 print("###########################################")
 print("       STANDARD DEVIATION PER COLUMN       ")
@@ -238,6 +248,8 @@ columnstddev(irisdf)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Deviation.png)
 
 #### 3.4.3.6 VARIANCE
+This function calculates the variance for each column. Again, this reuses same code as the Averages function, but subs in the NumPy ".var()" function.
+
 ````python
 print("#################################")
 print("       VARIANCE PER COLUMN       ")
@@ -260,7 +272,8 @@ columnsvar(irisdf)
 After completing the above basic analysis, I then moved on to looking at if any of the attributes influenced other attributes. I did this using corrolation analysis.
 
 #### 3.5.1 CORROLATION TABLE
-There method I used to identify any potential corrolation was creating a corrolation dataframe using the "dataframe.corr()" function and then printing the dataframe.
+The method I used to identify any potential corrolation was creating a corrolation dataframe using the Pandas "dataframe.corr()" function and then printing the dataframe. I also used Pandas ".round()" function to limit the output to two decimal places.
+
 ````python
 #####################
 #CORROLATION TABLE
@@ -274,6 +287,10 @@ print(corrdf.round(2)) #print rounded to two decimal places to match heatmap
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrtable.png)
 
 #### 3.5.2 CORROLATION HEATMAP
+I also referenced [The Python Graph Gallery](https://python-graph-gallery.com/90-heatmaps-with-various-input-format/) to learn how to generate a Seaborn heatmap as an alternative way of illustrating this dataframe. I added annotation to display the values in heatmap after watching the [video tutorial](https://www.youtube.com/watch?v=bA7ZcNmhnTs) referenced in the code below.
+
+In the code below, the "corrdf" dataframe that was generated previously is used as the source dataframe. "Ticklabels" is used to assign the values for each axis. "Annot=True" adds the annotation for each square in the heatmap. cmap= "bwr" sets the colour pallet for the chart which is blue for negative values and red for positive. The colour map was sourced from the Matplotlib colourmap reference page available [here](https://matplotlib.org/examples/color/colormaps_reference.html).
+
 ````python
 #####################
 #CORROLATION HEATMAP
@@ -287,6 +304,8 @@ plot.show(heat)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrheatmap.png)
 
 #### 3.5.3 CORROLATION PAIRPLOT
+While looking at The Python Graph Gallery I also noticed the [Corrolation Matrix](https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/) which is a Seaborn Pairplot graph. To add a "hue" (reference colour scheme) that shows different species, I removed the index from the dataframe to allow me to set the "Species" column as a reference. Try to set the "df.index" as a reference for the "hue" returned an error.
+
 ````python
 #https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/ & https://python-graph-gallery.com/111-custom-correlogram/
 pairplotdf = irisdf.reset_index() # had to remove index to get the "hue" to pick up the seperate species. Didn't work with df.index
@@ -299,8 +318,13 @@ plot.show(corr_pairplot)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrplot.png)
 
 ### 3.6 COMPARING / CONTRASTING SPECIES
+From my initial research into the dataset, I learned that Iris-setosa is easy to distinguish from the the other two species, while the Versicolor and Virginica are very similar. To illustrate this, I generated a bar chart showing average values for each Attibute grouped by Species. I also generate a Seaborn [Swarmplot](https://seaborn.pydata.org/generated/seaborn.swarmplot.html) to show difference between each Species for each Attribute.
 
 #### 3.6.1 AVERAGES COMPARISON
+To create the Average barchart, I first restructured the master "irisdf" dataframe into a format that suited the graph I wanted to generate (Column 1 = Species, Column 2 = Attributes, Column 3 = Average per Attribute per Species). I first played around with data in Excel and generated the graph there to help me visualise what I needed to do. When I began researching how to pivot and perform a calculation on the data I saw references to the Pandas "stack()" function. While I didn't generally find official Pandas documentation very helpful in this project, it's page on [Reshaping and Pivot Tables](https://pandas.pydata.org/pandas-docs/stable/reshaping.html) was pretty clear and understable. To allow for using the "stack" function I had to go back to the "Importing & Strucuring" section of my code to add name to the "Attribute" row of the dataframe so I could be converted into a column in the new "iris_stackdf" dataframe. I also named the new column created from all the Attribute values "Measures". Finally, I converted this dataframe into another new dataframe tha summarised the "Measures" values into averages using the "grouby" function I had used to summarise by the count of rows earlier in my analysis.
+
+To show the chart the data seperated out by "Species" I used the Seaborn [Factorplot](https://seaborn.pydata.org/generated/seaborn.factorplot.html) with the graph "kind" set to "bar". I then set the "hue" colour scheme clearly show the difference between petal width, petal length, sepal width, and sepal length.
+
 ````python
 # CREATING AVERAGES STACKED DATAFRAME
 iris_stackv = irisdf.stack() # restructure dataframe using stack
@@ -317,6 +341,10 @@ plot.show(grouped_avgs_graph)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/averagesbarchart.png)
 
 #### 3.6.2 ATTRIBUTES SWARMPLOT
+While browsing the Seaborn examples gallery I saw an example of a [Swarmplot](https://seaborn.pydata.org/examples/scatterplot_categorical.html) using Fisher's Iris Dataset. I was very clear illustration of how the Setosa species differed from Versicolor and Viriginica so I included my own version in my analysis. 
+
+To chart the data I reused the stacked dataframe I had created in the first step for the Averages barchart above, but removed the indexes to make it easier to set the graphs parameters as using df.index as parameter always returned an error when plotting graphs.
+
 ````python
 #SWARM DISTRIBUTION
 iris_stackswarm = iris_stackdf.reset_index()
