@@ -269,10 +269,10 @@ columnsvar(irisdf)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
 
-### 3.5 CORROLATION ANALYSIS
+## 3.5 CORROLATION ANALYSIS
 After completing the above basic analysis, I then moved on to looking at if any of the attributes influenced other attributes. I did this using corrolation analysis.
 
-#### 3.5.1 CORROLATION TABLE
+### 3.5.1 CORROLATION TABLE
 The method I used to identify any potential corrolation was creating a corrolation dataframe using the Pandas "dataframe.corr()" function and then printing the dataframe. I also used Pandas ".round()" function to limit the output to two decimal places.
 
 ````python
@@ -287,7 +287,7 @@ print(corrdf.round(2)) #print rounded to two decimal places to match heatmap
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrtable.png)
 
-#### 3.5.2 CORROLATION HEATMAP
+### 3.5.2 CORROLATION HEATMAP
 I also referenced [The Python Graph Gallery](https://python-graph-gallery.com/90-heatmaps-with-various-input-format/) to learn how to generate a Seaborn heatmap as an alternative way of illustrating this dataframe. I added annotation to display the values in heatmap after watching the [video tutorial](https://www.youtube.com/watch?v=bA7ZcNmhnTs) referenced in the code below.
 
 In the code below, the "corrdf" dataframe that was generated previously is used as the source dataframe. "Ticklabels" is used to assign the values for each axis. "Annot=True" adds the annotation for each square in the heatmap. cmap= "bwr" sets the colour pallet for the chart which is blue for negative values and red for positive. The colour map was sourced from the Matplotlib colourmap reference page available [here](https://matplotlib.org/examples/color/colormaps_reference.html).
@@ -304,7 +304,7 @@ plot.show(heat)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrheatmap.png)
 
-#### 3.5.3 CORROLATION PAIRPLOT
+### 3.5.3 CORROLATION PAIRPLOT
 While looking at The Python Graph Gallery I also noticed the [Corrolation Matrix](https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/) which is a Seaborn Pairplot graph. To add a "hue" (reference colour scheme) that shows different species, I removed the index from the dataframe to allow me to set the "Species" column as a reference. Try to set the "df.index" as a reference for the "hue" returned an error.
 
 ````python
@@ -318,10 +318,10 @@ plot.show(corr_pairplot)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrplot.png)
 
-### 3.6 COMPARING / CONTRASTING SPECIES
+## 3.6 COMPARING / CONTRASTING SPECIES
 From my initial research into the dataset, I learned that Iris-setosa is easy to distinguish from the the other two species, while the Versicolor and Virginica are very similar. To illustrate this, I generated a bar chart showing average values for each Attibute grouped by Species. I also generate a Seaborn [Swarmplot](https://seaborn.pydata.org/generated/seaborn.swarmplot.html) to show difference between each Species for each Attribute.
 
-#### 3.6.1 AVERAGES COMPARISON
+### 3.6.1 AVERAGES COMPARISON
 To create the Average barchart, I first restructured the master "irisdf" dataframe into a format that suited the graph I wanted to generate (Column 1 = Species, Column 2 = Attributes, Column 3 = Average per Attribute per Species). I first played around with data in Excel and generated the graph there to help me visualise what I needed to do. When I began researching how to pivot and perform a calculation on the data I saw references to the Pandas "stack()" function. While I didn't generally find official Pandas documentation very helpful in this project, it's page on [Reshaping and Pivot Tables](https://pandas.pydata.org/pandas-docs/stable/reshaping.html) was pretty clear and understable. To allow for using the "stack" function I had to go back to the "Importing & Strucuring" section of my code to add name to the "Attribute" row of the dataframe so I could be converted into a column in the new "iris_stackdf" dataframe. I also named the new column created from all the Attribute values "Measures". Finally, I converted this dataframe into another new dataframe tha summarised the "Measures" values into averages using the "grouby" function I had used to summarise by the count of rows earlier in my analysis.
 
 To show the chart the data seperated out by "Species" I used the Seaborn [Factorplot](https://seaborn.pydata.org/generated/seaborn.factorplot.html) with the graph "kind" set to "bar". I then set the "hue" colour scheme clearly show the difference between petal width, petal length, sepal width, and sepal length.
@@ -341,7 +341,7 @@ plot.show(grouped_avgs_graph)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/averagesbarchart.png)
 
-#### 3.6.2 ATTRIBUTES SWARMPLOT
+### 3.6.2 ATTRIBUTES SWARMPLOT
 While browsing the Seaborn examples gallery I saw an example of a [Swarmplot](https://seaborn.pydata.org/examples/scatterplot_categorical.html) using Fisher's Iris Dataset. I was very clear illustration of how the Setosa species differed from Versicolor and Viriginica so I included my own version in my analysis. 
 
 To chart the data I reused the stacked dataframe I had created in the first step for the Averages barchart above, but removed the indexes to make it easier to set the graphs parameters as using df.index as parameter always returned an error when plotting graphs.
@@ -357,10 +357,10 @@ plot.show(swarm_by_attr_graph)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/scatterplot.png)
 
-### 3.7 CLUSTER ANALYSIS
+## 3.7 CLUSTER ANALYSIS
 While researching the Iris dataset, I came found a [project analysing the data using the R programming language](https://cran.r-project.org/web/packages/dendextend/vignettes/Cluster_Analysis.html). This encluded some examples of dendrograms, which felt like a very appropriate way of representing the data since it concerns species and biological classification. This also peaked my interest because in the [wikipedia article](https://en.wikipedia.org/wiki/Iris_flower_data_set) on the Iris data set, it had also mention the this dataset was a difficult case for cluster analysis when the species are not know in advance. It was also another useful way of illustrating that the Setosa species has very distinct charecteristics / attributes while Viriginica and Versicolor are similar to a degree that they are sorted into the same clusters. 
 
-#### 3.7.1 DENDROGRAM
+### 3.7.1 DENDROGRAM
 I once again used [The Python Graph Gallery](https://python-graph-gallery.com/400-basic-dendrogram/) as a reference to learn how to generate this chart. I first edited the dataframe by removing the index header and then the column headers using [this method](https://stackoverflow.com/questions/44917675/pandas-delete-column-name) described on Stack Overflow. In order to generate the dendrogram, I added SciPy's clustering package to my list of packages to import in the "Importing & Structuring" section at the start of my code. It is also necessary to set a linkage type in order to specify the distance between clusters (see this [blog](https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/) I consulted). I also generated the graph using "single", "complete", and "average" linkage, but the default "ward" linkage seemed to be getting the best results. I did briefly investigate what the difference between the linkage types were, but I don't come from a statistics background and found it very difficult to follow. 
 
 When generating the dendrogram I switched the orientation so the species name for each datapoint label would be easier to read and changes the labels from a the datapoint number to the species name. The method for doing both these steps was taken from the [Customised Dendrogram](https://python-graph-gallery.com/401-customised-dendrogram/#tab-3) tutorial on The Python Graph Gallery site. 
@@ -381,7 +381,7 @@ plot.show(dendrogram_chart)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/irisdendrogram.png)
 
-#### 3.7.2 CLUSTERMAP
+### 3.7.2 CLUSTERMAP
 After finishing my dendrogram, I continued looking through the Python Graph Gallery. It stated the when using a dendrogram to display the results of a cluster analyis it is best practice to also add a heatmap of the information (see the [Dendrogram with heat map](https://python-graph-gallery.com/404-dendrogram-with-heat-map/) page of the Python Graph Gallery.
 
 I particularly liked the [Dendrogram with Coloured Leaves](https://python-graph-gallery.com/405-dendrogram-with-heatmap-and-coloured-leaves/) example as it would clearly show the overlap between the Versicolor and Virginica species. 
@@ -422,6 +422,7 @@ plot.show(clustermap)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
 
 # 4.O SUMMARY OF INVESTIGATIONS
+In this section I will discuss what I observed about the Iris dataset, when reviewing the output of the code I have discussed above. 
 
 ## 4.1 STATISICAL FUNCTIONS
 
@@ -429,8 +430,13 @@ plot.show(clustermap)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/MinMax.png)
 
+As you can see from the above figures, the range for Petal Length and P Width is relatively large compared to the two Sepeal characteristics. As we will see later, this is due to the Setosa species having a significantly smaller Petal size in comparison to the other two Species.
 
+### 4.1.2 MEDIAN & MODE 
 
+MEDIAN                     |  MODE
+:-------------------------:|:-------------------------:
+![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Median.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Mode.png)
 
 ## CORROLATION ANALYSIS
 
