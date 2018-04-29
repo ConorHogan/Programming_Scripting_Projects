@@ -185,6 +185,7 @@ plot.show(swarm_by_attr_graph)
 #######################################################################
 
 #####################
+
 #DENDROGRAM
 ###################### 
 # see https://python-graph-gallery.com/400-basic-dendrogram/  
@@ -198,12 +199,13 @@ plot.show(dendrogram_chart)
 #CLUSTERMAP
 ###################### 
 #http://seaborn.pydata.org/generated/seaborn.clustermap.html - documentation for this one is really good, lots of examples
-irisdf.index.name = "Species" # restore index name
+irisdf.index.name = "Species" # restore index names
+irisdf.columns = ["S_Length","S_Width","P_Length","P_Width"] # restore column names
 clusterdf = irisdf.reset_index() # strip index again
 species = clusterdf.pop("Species") # cuts Species column
 lut = dict(zip(species.unique(), "rbg")) # assigns values to unique species
 row_colors = species.map(lut) # finds species names in graph and assigns colours
-clustermap = graph.clustermap(clusterdf, method="average", cmap="mako", linewidths=.5, figsize=(10, 15), row_colors=row_colors)
+clustermap = graph.clustermap(clusterdf, method="ward", cmap="mako", figsize=(10, 15), row_colors=row_colors)
 for tick_label in clustermap.ax_heatmap.axes.get_yticklabels(): # make colour of labels match Species row colour https://stackoverflow.com/questions/47292737/change-the-color-for-ytick-labels-in-seaborn-clustermap
     tick_text = tick_label.get_text()
     species_name = species.loc[int(tick_text)]
