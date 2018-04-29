@@ -1,6 +1,16 @@
 # 1.0 OVERVIEW
 
+This project consists of three main sections:
 
+1. A brief [Introduction to Fisher's Iris Dataset]
+
+2. The [Code Used For Analysis] of the dataset and the graphs and tables generated using this code.
+
+3. A [Summary of Observations] of the data based on the outputs of the Python script I wrote. 
+
+I treated this project as a learning exercise to findout out how to analyse datasets using Python and you will see that by far the largest part of this project details the code I used in my analysis, what is does and how it works. Where relevant I have included embedded hyperlinks to any sources I used when writing the code.
+
+Please note that the all the code used for analysis in this project is contained in one script and is intended to be run as one file available [here]((https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Iris_Analysis.py). Running the file will output all tables and graphs included in this project. 
 
 
 # 2.0 INTRODUCTION TO FISHER'S IRIS DATASET
@@ -11,18 +21,25 @@ Fisher's Iris dataset describes the biological characterisitics of three species
 3. petal lenght in cm
 4. petal width in cm
 
-The dataset has become a standard used to test new methods of sorting data, for example in machine learning. 
-The dataset represents a difficult case for unsupervised analysis i.e. if the species for each example is not know. As I will show in my own analysis, Iris Setosa is a clearly distinct species, whereas Iris Versicolor and Iris Virginica are more difficult to distinguish from eachother for certain without knowing the species name in advance. 
+The samples were all collected by American botanist Edgar Anderson in Canada, with two of the species gathered from the same pasture on the same day using the same equipment. As the same samples were gathered by Anderson, the dataset is sometimes know as Anderson's Iris data set. 
+
+The dataset was first made famous by British statistician and geneticist Ronal Fisher, who used the data in a 1936 paper demonstrating linear discriminate analysis.
+
+The dataset has since become a sort of "hello world" dataset for machine learning and statistics. Analysis of the dataset is reliant on knowing in advance which species each sample belongs to as while Iris Setosa is a clearly distinct species, Iris Versicolor and Iris Virginica are more difficult to distinguish from each other using the four measures provided. In my analysis I want to illustrate this issue along with the differences and similarities between the species.
 
 ### Sources for this section: 
 https://www.techopedia.com/definition/32880/iris-flower-data-set
+
 http://lab.fs.uni-lj.si/lasin/wp/IMIT_files/neural/doc/seminar8.pdf
+
+https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html
+
 https://en.wikipedia.org/wiki/Iris_flower_data_set
 
 # 3.0 CODE USED FOR ANALYSIS
 
 ## 3.1 INTRODUCTION TO THIS SECTION
-In this section I will show the types of analysis I performed on the dataset and the Python code I used in for each type. Please note the code I have written is all contained within the one "Iris_Analysis.py" file available in the respository. The code is designed to be run in one go and it will output all the analysis outlined below to either the users terminal or as Matplotlib graphs.
+In this section I will show the types of analysis I performed on the dataset and the Python code I used in for each type. Please note the code I have written is all contained within the one [Iris_Analysis.py](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Iris_Analysis.py) file available in the respository. The code is designed to be run in one go and it will output all the analysis outlined below to either the users terminal or as Matplotlib graphs.
 
 ## 3.2 PACKAGES USED IN ANALYSIS 
 I imported the following packages for in my analysis: 
@@ -453,7 +470,7 @@ plot.show(clustermap)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
 
-# 4.O SUMMARY OF INVESTIGATIONS
+# 4.O SUMMARY OF OBSERVATIONS
 In this section I will discuss what I observed about the Iris dataset, when reviewing the output of the code I have discussed above.
 
 ## 4.1 STATISICAL FUNCTIONS
@@ -537,9 +554,3 @@ In conclusion, if you were presented with this dataset without knowing which spe
 Firstly, looking for corrolation between characteristics in the dataset as a whole leads to results that are not repeated when you know there are three seperate species and you analyse these individually.
 
 Secondly, while you would quickly be able to identify that there is one clearly distinct group or species present in the dataset (Iris Setosa), and that there are two other groups, many of the Virginica and Versicolor samples would be misclassified into the others species.
-
-
-
-
-
-
