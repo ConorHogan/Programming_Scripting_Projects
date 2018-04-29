@@ -422,21 +422,38 @@ plot.show(clustermap)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/clustermap.png)
 
 # 4.O SUMMARY OF INVESTIGATIONS
-In this section I will discuss what I observed about the Iris dataset, when reviewing the output of the code I have discussed above. 
+In this section I will discuss what I observed about the Iris dataset, when reviewing the output of the code I have discussed above.
 
 ## 4.1 STATISICAL FUNCTIONS
 
-### 4.1.2 MIN AND MAX (RANGE)
+### 4.1.1 MIN AND MAX (RANGE)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/MinMax.png)
 
-As you can see from the above figures, the range for Petal Length and P Width is relatively large compared to the two Sepeal characteristics. As we will see later, this is due to the Setosa species having a significantly smaller Petal size in comparison to the other two Species.
+As you can see from the above figures, the range for Petal Length and Petal Width is relatively large compared to the two Sepeal characteristics. As we will see later, this is due to the Setosa species having a significantly smaller Petal size in comparison to the other two Species.
 
 ### 4.1.2 MEDIAN & MODE 
 
 MEDIAN                     |  MODE
 :-------------------------:|:-------------------------:
 ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Median.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Mode.png)
+
+Looking at the relatively high Median values for Petal Length and Petal Width in comparison to the minimum values observed above is further evidence that there is a minority of that with small petals. Also, the low Mode for the petal characteristics in comparison to Median and Average is an indicator that there may be a minority of the dataset that is disproportionately responsible keeping these figures low.
+
+### 4.1.3 AVERAGE & STANDARD DEVIATION
+
+MEDIAN                     |  MODE
+:-------------------------:|:-------------------------:
+![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Average.png)  |  ![](![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Deviation.png)
+
+The Averages don't tell us much on their own, but act a baseline for comparison with the other outputs. 
+
+
+
+
+
+
+
 
 ## CORROLATION ANALYSIS
 
