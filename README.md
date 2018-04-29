@@ -70,7 +70,7 @@ virginica_df = irisdf[irisdf.index == "Iris-virginica"]
 
 The above code created the "irisdf" dataframe that I would be using as master dataframe for the rest of the analysis. The code first creates a variable storing the link to the dataset file as a URL. It then creates a dataframe by reading the data in the URL. "Header=None" ensures that the top row of the dataset is not counted as header row. If I had not of done this, the top row of the dataset would have been skipped in all my future calculations. I then assigned names to each of the columns in the dataset as these were missing from the original file. I also gave the column header rows the name "Attributes" to help with pivots the data using "stack" later in my analysis. Finally, I set the "Species" column as the dataframes Index as this would be column I would be using to filter, or slice the dataframe in most of my analysis. Setting an index also removes the count column when printing the dataframe. 
 
-I also created three seperate dataframes for each species, but in the end the were not required. 
+I also created three seperate dataframes for each species, which are used later in the Corrolation Analysis. 
 
 ## 3.4 BASIC ANALYSIS
 
@@ -304,7 +304,39 @@ plot.show(heat)
 
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrheatmap.png)
 
-### 3.5.3 CORROLATION PAIRPLOT
+### 3.5.2 CORROLATION BY SPECIES
+I also used the species dataframes I created earlier to create corrolation table for each Species to compare against the data as a whole.
+
+````python
+print("####################")
+print("#CORROLATION SETOSA#")
+print("####################")
+corr_setosadf = setosa_df.corr()
+print(corr_setosadf.round(2))
+print ("")
+print ("")
+print("########################")
+print("#CORROLATION VERSICOLOR#")
+print("########################")
+corr_verdf = versicolor_df.corr()
+print(corr_verdf.round(2))
+print ("")
+print ("")
+print("#######################")
+print("#CORROLATION VIRGINICA#")
+print("#######################")
+corr_virgdf = virginica_df.corr()
+print(corr_virgdf.round(2))
+````
+
+**Output:**
+
+SETOSA                     |  VERSICOLOR               |  VIRGINICA
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Setosacorr.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Versicorr.png)   |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Virgincorr.png)
+
+
+### 3.5.4 CORROLATION PAIRPLOT
 While looking at The Python Graph Gallery I also noticed the [Corrolation Matrix](https://python-graph-gallery.com/110-basic-correlation-matrix-with-seaborn/) which is a Seaborn Pairplot graph. To add a "hue" (reference colour scheme) that shows different species, I removed the index from the dataframe to allow me to set the "Species" column as a reference. Try to set the "df.index" as a reference for the "hue" returned an error.
 
 ````python
@@ -446,24 +478,32 @@ AVERAGE                    |  STANDARD DEVIATION       |  VARIANCE
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Average.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Deviation.png)   |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
 
-The Averages don't tell us much on their own, but acts a baseline for comparison with the other outputs. For example, looking at the Standard Deviation for the two Petal characterisitcs we can see that values are very high in comparison to the Average values. This again suggests a large distribution of values in the samples for these two characterisitics and suggest that we are dealing with species that look very different from each other. 
-
-### 4.1.4 VARIANCE
-
-![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Variance.png)
+The Averages don't tell us much on their own, but acts a baseline for comparison with the other outputs. For example, looking at the Standard Deviation and Variance for the two Petal characterisitcs we can see that values are very high in comparison to the Average values. This again suggests a large distribution of values in the samples for these two characterisitics and suggest that we are dealing with species that look very different from each other. 
 
 
+## 4.2 CORROLATION ANALYSIS
 
+![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/corrheatmap.png)
 
+The Corrolation heatmap gives us some interesting results. Based on the data as a whole we can observe very strong positive corrolation between:
 
+1. Sepal Length & Petal Width (0.82)
+2. Sepal Lenght & Petal Length (0.87)
+3. Petal Length & Petal Width (0.92) 
 
+This above tells us that as one of these attributes gets higher so does the other. However, Sepal Width acts in opposite manner. The bigger the Iris gets, the smaller the Sepal Width is in comparison. 
 
+However, this is actually misleading. If you look at all three species seperately below, the only strong corrolation (0.8+) in any of the species is Sepal Length & Petal Length in Iris Virginica and there is no negative corrolation between characterisitics within species. As would be expected, corrolation in the Virgincia and Versicolor species are more similar, but Setosa and Virginica have an exactly matching corrolation figures (0.28) for Sepal Length and Petal Width. 
 
+SETOSA                     |  VERSICOLOR               |  VIRGINICA
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Setosacorr.png)  |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Versicorr.png)   |  ![](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/Virgincorr.png)
 
+In summary, there is a no significant corrolation between characteristics when viewing the species on an individual basis, but there may be some corrolation for Irises in general.
 
-
-## CORROLATION ANALYSIS
 
 ## COMPARATIVE ANALYSIS
+
+
 
 ## CLUSTER ANALYSIS
