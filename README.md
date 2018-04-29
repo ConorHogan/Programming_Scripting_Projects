@@ -357,8 +357,13 @@ plot.show(swarm_by_attr_graph)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/scatterplot.png)
 
 ### 3.7 CLUSTER ANALYSIS
+While researching the Iris dataset, I came found a [project analysing the data using the R programming language](https://cran.r-project.org/web/packages/dendextend/vignettes/Cluster_Analysis.html). This encluded some examples of dendrograms, which felt like a very appropriate way of representing the data since it concerns species and biological classification. This also peaked my interest because in the [wikipedia article](https://en.wikipedia.org/wiki/Iris_flower_data_set) on the Iris data set, it had also mention the this dataset was a difficult case for cluster analysis when the species are not know in advance. It was also another useful way of illustrating that the Setosa species has very distinct charecteristics / attributes while Viriginica and Versicolor are similar to a degree that they are sorted into the same clusters. 
 
 #### 3.7.1 DENDROGRAM
+I once again used [The Python Graph Gallery](https://python-graph-gallery.com/400-basic-dendrogram/) as a reference to learn how to generate this chart. I first edited the dataframe by removing the index header and then the column headers using [this method](https://stackoverflow.com/questions/44917675/pandas-delete-column-name) described on Stack Overflow. In order to generate the dendrogram, I added SciPy's clustering package to my list of packages to import in the "Importing & Structuring" section at the start of my code. It is also necessary to set a linkage type in order to specify the distance between clusters (see this [blog](https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/) I consulted). I also generated the graph using "single", "complete", and "average" linkage, but the default "ward" linkage seemed to be getting the best results. I did briefly investigate what the difference between the linkage types were, but I don't come from a statistics background and found it very difficult to follow. 
+
+When generating the dendrogram I switched the orientation so the species name for each datapoint label would be easier to read and changes the labels from a the datapoint number to the species name. The method for doing both these steps was taken from the [Customised Dendrogram](https://python-graph-gallery.com/401-customised-dendrogram/#tab-3) tutorial on The Python Graph Gallery site. 
+
 ````python
 #####################
 #DENDROGRAM
@@ -376,17 +381,36 @@ plot.show(dendrogram_chart)
 ![alt text](https://github.com/ConorHogan/Programming_Scripting_Projects/blob/master/Images/irisdendrogram.png)
 
 #### 3.7.2 CLUSTERMAP
+After finishing my dendrogram, I continued looking through the Python Graph Gallery. It stated the when using a dendrogram to display the results of a cluster analyis it is best practice to also add a heatmap of the information (see the [Dendrogram with heat map](https://python-graph-gallery.com/404-dendrogram-with-heat-map/) page of the Python Graph Gallery.
+
+I particularly liked the [Dendrogram with Coloured Leaves](https://python-graph-gallery.com/405-dendrogram-with-heatmap-and-coloured-leaves/) example as it would clearly show the overlap between the Versicolor and Virginica species. 
+
+To generate the "colour leaves" section of the graph I did the following steps using a [post on Stack Overflow as a guide](https://stackoverflow.com/questions/47292737/change-the-color-for-ytick-labels-in-seaborn-clustermap):
+
+1. Restored the index name "Species" using "df.index.name" and restored column names
+
+2. Turned of the index setting in order to allow me to "pop" the column in the next step
+
+3. Used "df.pop" to cut out the "Species" column.
+
+4. Created a dictionary of the 3 unique values in the "Species" column and and assigned the "rbg" colour scheme to this list.
+
+For the clustermap itself, I again set "ward" as the linkage method, set the colour scheme to "mako". Finally, I again borrowed code from the Stack Overflow example to make the datalables on the right hand side match the colour of the "Species Leaves" section. 
+
+
+
 ````python
 #####################
 #CLUSTERMAP
 ###################### 
 #http://seaborn.pydata.org/generated/seaborn.clustermap.html - documentation for this one is really good, lots of examples
-irisdf.index.name = "Species" # restore index name
+irisdf.index.name = "Species" # restore index names
+irisdf.columns = ["S_Length","S_Width","P_Length","P_Width"] # restore column names
 clusterdf = irisdf.reset_index() # strip index again
 species = clusterdf.pop("Species") # cuts Species column
 lut = dict(zip(species.unique(), "rbg")) # assigns values to unique species
 row_colors = species.map(lut) # finds species names in graph and assigns colours
-clustermap = graph.clustermap(clusterdf, method="average", cmap="mako", linewidths=.5, figsize=(10, 15), row_colors=row_colors)
+clustermap = graph.clustermap(clusterdf, method="ward", cmap="mako", figsize=(10, 15), row_colors=row_colors)
 for tick_label in clustermap.ax_heatmap.axes.get_yticklabels(): # make colour of labels match Species row colour https://stackoverflow.com/questions/47292737/change-the-color-for-ytick-labels-in-seaborn-clustermap
     tick_text = tick_label.get_text()
     species_name = species.loc[int(tick_text)]
